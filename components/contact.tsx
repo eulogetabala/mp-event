@@ -26,8 +26,8 @@ export function Contact() {
 
             <ul className="mt-10 space-y-5">
               {[
-                { icon: Phone, label: "Téléphone", value: "+242 06 000 00 00" },
-                { icon: Mail, label: "Email", value: "contact@mpservices.cg" },
+                { icon: Phone, label: "Téléphone", value: "05 021 03 03 · 066 273 833" },
+                { icon: Mail, label: "Email", value: "contact@ste-mpservices.com" },
                 { icon: MapPin, label: "Zone d'intervention", value: "Brazzaville · Pointe-Noire · tout le Congo" },
               ].map((item) => (
                 <li key={item.label} className="flex items-center gap-4">

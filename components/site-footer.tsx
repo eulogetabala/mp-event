@@ -11,7 +11,7 @@ const groups = [
   },
   {
     title: "Contact",
-    links: ["+242 06 000 00 00", "contact@mpservices.cg", "Brazzaville · Pointe-Noire"],
+    links: ["05 021 03 03", "066 273 833", "contact@ste-mpservices.com", "Brazzaville · Pointe-Noire"],
   },
 ]
 
