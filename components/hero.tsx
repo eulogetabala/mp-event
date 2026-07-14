@@ -1,5 +1,28 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import Image from "next/image"
-import { ArrowUpRight, Sparkles, ConciergeBell, ShieldCheck, Users } from "lucide-react"
+import { ArrowUpRight, Sparkles, ChevronLeft, ChevronRight } from "lucide-react"
+import { cn } from "@/lib/utils"
+
+const slides = [
+  {
+    image: "/images/hotesses.png",
+    badge: "Accueil & Événementiel Premium",
+    title: "Sublimez l'image de votre entreprise",
+    subtitle: "Des hôtesses d'accueil professionnelles et du personnel événementiel qualifié pour un accueil irréprochable à Brazzaville, Pointe-Noire et partout au Congo.",
+    ctaPrimary: "Demander un devis",
+    ctaSecondary: "Nos prestations",
+  },
+  {
+    image: "/images/securite.png",
+    badge: "Sécurité & Protection 24/7",
+    title: "Protégez vos collaborateurs et vos biens",
+    subtitle: "Des agents de sécurité certifiés, rigoureux et formés aux interventions d'urgence pour assurer la sécurité de vos locaux et événements.",
+    ctaPrimary: "Demander un devis",
+    ctaSecondary: "Nos prestations",
+  },
+]
 
 const marquee = [
   "Hôtesses d'accueil",
@@ -12,131 +35,140 @@ const marquee = [
 ]
 
 export function Hero() {
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length)
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
+  }
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      nextSlide()
+    }, 8000)
+    return () => clearInterval(timer)
+  }, [currentSlide])
+
   return (
-    <section className="relative overflow-hidden bg-primary text-primary-foreground">
-      {/* animated grid */}
-      <div className="mp-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
-      {/* glow blobs */}
-      <div
-        className="mp-glow pointer-events-none absolute -left-40 top-10 size-[28rem] rounded-full bg-accent/40 blur-3xl"
-        aria-hidden="true"
-      />
-      <div
-        className="mp-glow pointer-events-none absolute -right-32 bottom-0 size-[24rem] rounded-full bg-chart-2/40 blur-3xl"
-        style={{ animationDelay: "2s" }}
-        aria-hidden="true"
-      />
-
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 pb-20 pt-32 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8 lg:px-8 lg:pb-28 lg:pt-40">
-        {/* left copy */}
-        <div className="mp-reveal is-visible">
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/5 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-primary-foreground/80">
-            <Sparkles className="size-3.5 text-accent" />
-            Agence de mise à disposition de personnel
-          </span>
-
-          <h1 className="mt-6 text-balance text-5xl font-bold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
-            Le bon profil,
-            <br />
-            <span className="text-accent">au bon moment.</span>
-          </h1>
-
-          <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-primary-foreground/75">
-            MPServices met à disposition des entreprises des hôtesses d&apos;accueil, des agents de
-            sécurité et du personnel qualifié. Des équipes fiables, formées et disponibles à
-            Brazzaville, Pointe-Noire et dans tout le Congo.
-          </p>
-
-          <div className="mt-9 flex flex-wrap items-center gap-4">
-            <a
-              href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground transition-transform hover:-translate-y-0.5"
-            >
-              Demander un devis
-              <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
-            <a
-              href="#services"
-              className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/25 px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10"
-            >
-              Nos prestations
-            </a>
-          </div>
-
-          <dl className="mt-12 grid max-w-md grid-cols-3 gap-6">
-            {[
-              { value: "500+", label: "Missions/an" },
-              { value: "24/7", label: "Disponibilité" },
-              { value: "98%", label: "Clients fidèles" },
-            ].map((s) => (
-              <div key={s.label}>
-                <dt className="text-3xl font-bold text-primary-foreground">{s.value}</dt>
-                <dd className="mt-1 text-sm text-primary-foreground/60">{s.label}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-
-        {/* right visual */}
-        <div className="relative mp-reveal is-visible" style={{ animationDelay: "150ms" }}>
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border border-primary-foreground/15 shadow-2xl">
+    <section className="relative w-full h-[600px] sm:h-[700px] md:h-[800px] lg:h-[90vh] min-h-[550px] flex flex-col justify-between overflow-hidden bg-primary text-primary-foreground">
+      {/* Background images container */}
+      <div className="absolute inset-0 z-0">
+        {slides.map((slide, idx) => (
+          <div
+            key={idx}
+            className={cn(
+              "absolute inset-0 transition-opacity duration-1000 ease-in-out",
+              idx === currentSlide ? "opacity-100 z-0" : "opacity-0 pointer-events-none -z-10"
+            )}
+          >
             <Image
-              src="/images/hero.png"
-              alt="Équipe MPServices : hôtesses et agents de sécurité dans un hall d'entreprise moderne"
+              src={slide.image}
+              alt={slide.badge}
               fill
-              priority
-              sizes="(max-width: 1024px) 90vw, 420px"
-              className="object-cover"
+              priority={idx === 0}
+              sizes="100vw"
+              className={cn(
+                "object-cover transition-transform",
+                idx === currentSlide ? "mp-ken-burns" : "scale-100"
+              )}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent" />
           </div>
+        ))}
+        {/* Dark elegant overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/35 z-10" />
+        {/* Animated grid overlay */}
+        <div className="mp-grid pointer-events-none absolute inset-0 opacity-20 z-10" aria-hidden="true" />
+      </div>
 
-          {/* floating badges */}
-          <div className="mp-float absolute -left-2 top-10 flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-card-foreground shadow-xl sm:-left-6">
-            <span className="grid size-9 place-items-center rounded-xl bg-accent/15 text-accent">
-              <ConciergeBell className="size-5" />
-            </span>
-            <div>
-              <p className="text-sm font-semibold">Hôtesses</p>
-              <p className="text-xs text-muted-foreground">Accueil premium</p>
-            </div>
-          </div>
+      {/* Main Content Area */}
+      <div className="relative z-20 flex-grow flex items-center pt-20">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+          {slides.map((slide, idx) => (
+            <div
+              key={idx}
+              className={cn(
+                "transition-all duration-1000 ease-in-out flex flex-col max-w-3xl",
+                idx === currentSlide
+                  ? "opacity-100 translate-y-0 relative z-20"
+                  : "opacity-0 translate-y-8 absolute inset-x-0 top-0 -z-10 pointer-events-none"
+              )}
+            >
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-white w-fit">
+                <Sparkles className="size-3.5 text-white animate-pulse" />
+                {slide.badge}
+              </span>
 
-          <div
-            className="mp-float absolute -right-2 top-1/2 flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-card-foreground shadow-xl sm:-right-6"
-            style={{ animationDelay: "1.5s" }}
-          >
-            <span className="grid size-9 place-items-center rounded-xl bg-accent/15 text-accent">
-              <ShieldCheck className="size-5" />
-            </span>
-            <div>
-              <p className="text-sm font-semibold">Sécurité</p>
-              <p className="text-xs text-muted-foreground">Agents certifiés</p>
-            </div>
-          </div>
+              <h1 className="mt-6 text-balance text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-white">
+                {slide.title}
+              </h1>
 
-          <div
-            className="mp-float absolute -bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-card-foreground shadow-xl"
-            style={{ animationDelay: "0.8s" }}
-          >
-            <span className="grid size-9 place-items-center rounded-xl bg-accent/15 text-accent">
-              <Users className="size-5" />
-            </span>
-            <div>
-              <p className="text-sm font-semibold">Personnel</p>
-              <p className="text-xs text-muted-foreground">Qualifié & formé</p>
+              <p className="mt-6 max-w-2xl text-pretty text-base sm:text-lg md:text-xl leading-relaxed text-white">
+                {slide.subtitle}
+              </p>
+
+              <div className="mt-9 flex flex-wrap items-center gap-4">
+                <a
+                  href="#contact"
+                  className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground transition-transform hover:-translate-y-0.5"
+                >
+                  {slide.ctaPrimary}
+                  <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+                <a
+                  href="#services"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                >
+                  {slide.ctaSecondary}
+                </a>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* marquee */}
-      <div className="relative border-t border-primary-foreground/10 py-5">
+      {/* Side navigation arrows */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-4 top-1/2 z-30 -translate-y-1/2 hidden md:flex size-12 items-center justify-center rounded-full border border-white/15 bg-black/30 text-white backdrop-blur-md transition-all hover:bg-accent hover:text-accent-foreground hover:scale-105 active:scale-95"
+        aria-label="Diapositive précédente"
+      >
+        <ChevronLeft className="size-6" />
+      </button>
+      <button
+        onClick={nextSlide}
+        className="absolute right-4 top-1/2 z-30 -translate-y-1/2 hidden md:flex size-12 items-center justify-center rounded-full border border-white/15 bg-black/30 text-white backdrop-blur-md transition-all hover:bg-accent hover:text-accent-foreground hover:scale-105 active:scale-95"
+        aria-label="Diapositive suivante"
+      >
+        <ChevronRight className="size-6" />
+      </button>
+
+      {/* Slide indicators (dots) */}
+      <div className="absolute bottom-24 left-1/2 z-30 flex -translate-x-1/2 gap-3">
+        {slides.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrentSlide(idx)}
+            className={cn(
+              "h-2.5 rounded-full transition-all duration-300",
+              idx === currentSlide
+                ? "w-8 bg-accent"
+                : "w-2.5 bg-white/35 hover:bg-white/60"
+            )}
+            aria-label={`Aller à la diapositive ${idx + 1}`}
+          />
+        ))}
+      </div>
+
+      {/* Scrolling marquee */}
+      <div className="relative z-20 border-t border-white/10 py-5 bg-black/10 backdrop-blur-xs">
         <div className="flex w-max mp-marquee gap-3">
           {[...marquee, ...marquee].map((item, i) => (
             <span
               key={i}
-              className="flex items-center gap-3 whitespace-nowrap px-4 text-sm font-medium uppercase tracking-widest text-primary-foreground/55"
+              className="flex items-center gap-3 whitespace-nowrap px-4 text-sm font-medium uppercase tracking-widest text-white/70"
             >
               {item}
               <span className="size-1.5 rounded-full bg-accent" />

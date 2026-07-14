@@ -34,14 +34,14 @@ export function SiteHeader() {
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="#" aria-label="MP Services - Accueil" className="flex items-center">
-          <span className="grid place-items-center rounded-lg bg-white px-2 py-1 shadow-sm ring-1 ring-black/5">
+          <span className="grid place-items-center rounded-lg bg-white px-2.5 py-1.5 shadow-sm ring-1 ring-black/5">
             <Image
               src="/images/logo.png"
               alt="MP Services"
-              width={120}
-              height={40}
+              width={140}
+              height={46}
               priority
-              className="h-9 w-auto"
+              className="h-11 w-auto"
             />
           </span>
         </a>
@@ -53,7 +53,7 @@ export function SiteHeader() {
                 href={l.href}
                 className={cn(
                   "text-sm font-medium transition-colors hover:text-accent",
-                  scrolled ? "text-muted-foreground" : "text-primary-foreground/80",
+                  scrolled ? "text-muted-foreground" : "text-white/90",
                 )}
               >
                 {l.label}
@@ -75,7 +75,7 @@ export function SiteHeader() {
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
           className={cn(
             "grid size-10 place-items-center rounded-md md:hidden",
-            scrolled ? "text-foreground" : "text-primary-foreground",
+            scrolled ? "text-foreground" : "text-white",
           )}
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}

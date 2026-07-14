@@ -228,6 +228,15 @@
   }
 }
 
+@keyframes mp-ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
 .mp-marquee {
   animation: mp-marquee 30s linear infinite;
 }
@@ -249,6 +258,10 @@
 
 .mp-glow {
   animation: mp-glow 8s ease-in-out infinite;
+}
+
+.mp-ken-burns {
+  animation: mp-ken-burns 8.5s ease-out forwards;
 }
 
 .mp-input {
