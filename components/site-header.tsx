@@ -33,7 +33,7 @@ export function SiteHeader() {
       )}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="#" aria-label="MP Services - Accueil" className="flex items-center">
+        <a href="#" aria-label="MP Services - Accueil" className="flex items-center gap-3">
           <span className="grid place-items-center rounded-lg bg-white px-2.5 py-1.5 shadow-sm ring-1 ring-black/5">
             <Image
               src="/images/logo.png"
@@ -43,6 +43,12 @@ export function SiteHeader() {
               priority
               className="h-11 w-auto"
             />
+          </span>
+          <span className={cn(
+            "text-2xl font-bold tracking-tight transition-colors",
+            scrolled ? "text-foreground" : "text-white",
+          )}>
+            Mp Services
           </span>
         </a>
 
