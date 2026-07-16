@@ -11,7 +11,13 @@ const groups = [
   },
   {
     title: "Contact",
-    links: ["05 021 03 03", "066 273 833", "contact@ste-mpservices.com", "Brazzaville · Pointe-Noire"],
+    links: [
+      "05 021 03 03", 
+      "066 273 833", 
+      "contact@ste-mpservices.com", 
+      "Brazzaville: 104 Av. de la base Batignolles BP 1312",
+      "Pointe-Noire: 23 Bd du Général de Gaulle BP 1126"
+    ],
   },
 ]
 

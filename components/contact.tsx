@@ -28,7 +28,8 @@ export function Contact() {
               {[
                 { icon: Phone, label: "Téléphone", value: "05 021 03 03 · 066 273 833" },
                 { icon: Mail, label: "Email", value: "contact@ste-mpservices.com" },
-                { icon: MapPin, label: "Zone d'intervention", value: "Brazzaville · Pointe-Noire · tout le Congo" },
+                { icon: MapPin, label: "Brazzaville", value: "104 Avenue de la base Batignolles BP 1312" },
+                { icon: MapPin, label: "Pointe-Noire", value: "23 Boulevard du Général de Gaulle BP 1126" },
               ].map((item) => (
                 <li key={item.label} className="flex items-center gap-4">
                   <span className="grid size-11 place-items-center rounded-xl bg-primary text-primary-foreground">
